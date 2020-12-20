@@ -14,8 +14,7 @@
     :src="message.attachment" 
     alt="image"
 />
-<a href="/" class="button delete" @click="clickDelete">Supprimer le message</a>
-<a href="/modifyMessage" class="button">Modifier le message</a>
+<button class="button">Modifier le message</button>
 </div>
  </div>
 </form>
@@ -38,29 +37,15 @@ export default {
     .get('messages')
     .then((response) => {
       this.messages = response.data;
-    console.log(this.messages)
+    // console.log(this.messages)
   });
   
   },
   methods:{
     handleClickPostMessage() {
        this.$router.push('/postMessage')
-    },
- 
-    
-      async clickDelete() {
-           try {
-         await axios.delete('message/id', {
-           messageId: this.message.Id
-         });
-         localStorage.getItem('token')
-    } catch(e) {
-        this.error = 'Message supprimé!'
     }
-   
-     }
   },
-  
    computed: {
       ...mapGetters(['user'])
    }
