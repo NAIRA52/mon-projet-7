@@ -7,7 +7,7 @@ import Profil from './components/Profil.vue'
 import ModifyProfil from './components/ModifyProfil.vue'
 import ListMessages from './components/ListMessages.vue'
 import PostMessage from './components/PostMessage.vue'
-// import ModifyMessage from './components/ModifyMessage.vue'
+import ModifyMessage from './components/ModifyMessage.vue'
 
 Vue.use(Router)
 
@@ -20,7 +20,7 @@ export default new Router({
         { path: '/user', component: Profil },
         { path: '/modifyProfil', component: ModifyProfil },
         { path: '/listMessages', component: ListMessages },
-        { path: '/postMessage', component: PostMessage }
-        // { path: '/modifyMessage', component: ModifyMessage }
+        { path: '/postMessage', component: PostMessage },
+        { path: '/modifyMessage', component: ModifyMessage }
     ]
 })

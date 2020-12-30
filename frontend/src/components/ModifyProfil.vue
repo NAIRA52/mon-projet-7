@@ -5,7 +5,7 @@
           <input type="text" class="form-control" v-model="bio" placeholder="Présentation"/>
     </div>
     <div class="btn">
-        <a href="/user" @click="handleClickModify" class="button modify">Valider la modification</a>
+        <router-link to="/user" @click="handleClickModify" class="button modify">Valider la modification</router-link>
     </div>
 </form>
 </template>

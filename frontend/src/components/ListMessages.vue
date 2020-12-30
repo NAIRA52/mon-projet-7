@@ -2,7 +2,7 @@
 <form>
   <!-- Poster un message -->
       <div class="btn">
-<a href="/postMessage" @click="handleClickPostMessage" class="button post">Poster une discussion</a>
+<router-link to="/postMessage" @click="handleClickPostMessage" class="button post">Poster une discussion</router-link>
 </div>
  <!-- Affichage du message -->
  <div v-if="user">
@@ -14,7 +14,7 @@
     :src="message.attachment" 
     alt="image"
 />
-<button class="button">Modifier le message</button>
+<router-link to="/modifyMessage" class="button">Modifier le message</router-link>
 </div>
  </div>
 </form>

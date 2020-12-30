@@ -20,7 +20,7 @@ module.exports = {
     },
     // Récuperer le "userId"
     getUserId: function(authorization) {
-        let userId = -1;
+        let userId = 1;
         let token = module.exports.parseAuthorization(authorization);
         if (token != null) {
             try {

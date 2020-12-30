@@ -70,9 +70,8 @@ module.exports = {
         // Paramétre à prendre pour modifier le message
         let title = req.body.title;
         let content = req.body.content;
-        let attachment = req.body.attachment;
         // si les 2 champs ne sont pas rempli , un message d'erreur apparait
-        if (title == null || content == null || attachment == null) {
+        if (title == null || content == null) {
             return res.status(400).json({ 'error': 'missing parameters' });
         }
         models.Message.findOne({

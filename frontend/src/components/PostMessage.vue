@@ -22,7 +22,6 @@ export default {
     name: 'PostMessage',
 data() {
     return {
-        
           title: '',
           content: '',
           image: null
