@@ -5,8 +5,8 @@
           <input type="text" class="form-control" v-model="bio" placeholder="Présentation"/>
     </div>
     <div class="btn">
-        <router-link to="/user" @click="handleClickModify" class="button modify">Valider la modification</router-link>
-    </div>
+      <a href="/profil" class="button modify" @click="handleClickModify">Valider la modifications</a>
+        </div>
 </form>
 </template>
 
@@ -30,6 +30,7 @@ export default {
 
     });
     localStorage.getItem('token', response.data.token);
+    // this.$router.push('/profil')
        }catch(e){
        this.error = 'Compte utilisateur modifié!'
    }

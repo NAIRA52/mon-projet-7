@@ -1,7 +1,7 @@
 <template>
 <form>
  <div class="card m-5">
- <div class="form-group">
+ <div class="form-group"> 
           <label>Titre</label>
           <input type="text" class="form-control" v-model="title" placeholder="Le titre"/>
       </div>
@@ -10,11 +10,12 @@
           <input type="text" class="form-control" v-model="content" placeholder="Ex: j'adore le sport, le cinéma"/>
       </div>
       <div class="form-group">
-         <input type="file" @change="onChangeSelected">
+         <input type="file">
       </div>
-<router-link to="/listMessages" class="btn btn-primary btn-block" @click="onChangeUpload">Poster</router-link> 
+      <a href="/listMessages" class="btn btn-primary btn-block" @click="onChangeUpload">Poster</a> 
 <button class="button">Supprimer le message</button>
 </div>
+
 </form>
 </template>
 
@@ -24,28 +25,28 @@ export default {
   name: 'ModifyMessage',
   data() {
         return {
-          id: '',
-          title: '',
-          content: '',
-          image: null
+         messageId: this.$route.params.messageId,
+         title:'',
+         content:'',
+         image: null
         }
   },
 
  methods: {
-  onChangeSelected(event) {
- this.image= event.target.files[0]
- console.log(this.image)
-},
  onChangeUpload(){
- const response = axios.put('message/id',{
-    id: this.id,
-     title: this.title,
-     content: this.content,
-     image: this.image
+   const fd = new FormData();
+  fd.append("title", this.title);
+  fd.append("content", this.content);
+fd.append('image', this.image);
+const response = axios.put('message/${this.messageId}',fd)
+  .then(res => {
+   console.log(res)
+   this.$router.push('/listMessages')
  })
- localStorage.getItem('token', response.data.token);
+localStorage.getItem('token', response.data.token) 
  }
- }
+
+  }
   }
 
 </script>
@@ -54,4 +55,3 @@ export default {
  img {
   width:100%
 }
-</style>

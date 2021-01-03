@@ -4,8 +4,8 @@
   <h3>Nom: {{user.username}}</h3>
   <h4 class="bio">Présentation: {{user.bio}}</h4>
   <h5 class="email">Contact: {{user.email}}</h5>
-<router-link to="/" @click="handleClickDelete" class="button delete">Supprimer le compte</router-link>
-<router-link to="/modifyProfil" class="button">Modifier la présentation</router-link>
+<a href="/" @click="handleClickDelete" class="button delete">Supprimer le compte</a>
+<a href="/modifyProfil" class="button">Modifier la présentation</a>
     </div>
 </form>
 </template>

@@ -39,7 +39,7 @@ methods: {
         this.$router.push('/');
     },
     handleClickProfil() {
-      this.$router.push('/user')
+      this.$router.push('/profil')
     },
     handleClickListMessages() {
       this.$router.push('/listMessages')

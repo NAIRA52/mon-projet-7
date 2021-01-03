@@ -26,6 +26,7 @@ module.exports = {
                 if (userFound) {
                     let newMessage =
                         models.Message.create({
+                            username: username,
                             title: title,
                             content: content,
                             attachment: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
@@ -76,27 +77,32 @@ module.exports = {
         }
         models.Message.findOne({
                 attributes: ['id', 'title', 'content', 'attachment'],
-                where: { id: userId }
+                where: { id: req.params.id }
             })
             .then(function(messages) {
                 if (messages) {
                     messages.update({
-                            title: (title ? title : messages.title),
-                            content: (content ? content : messages.content),
-                            attachment: (attachment ? attachment : messages.attachment)
+                        title: (title ? title : req.body.title),
+                        content: (content ? content : req.body.content),
+                        attachment: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+                            // attachment: (attachment ? attachment : messages.attachment)
+                    }, { where: { id: req.params.id } })
+
+                    .then(function(messages) {
+                        return res.status(200).json({
+                            'newmessagesId': messages.id,
+
                         })
-                        .then(function(messages) {
-                            return res.status(200).json({
-                                'newmessagesId': messages.id,
-                            })
-                        })
+                    })
+                    console.log(req.body);
                 } else {
                     res.status(404).json({ 'error': 'Utilisateur non trouvé!' });
                 }
             })
-            .catch(function(err) {
-                return res.status(500).json({ 'error': 'Impossible de vérifier l/utilisateur!' });
-            });
+
+        .catch(function(err) {
+            return res.status(500).json({ 'error': 'Impossible de vérifier l/utilisateur!' });
+        });
     },
 
     // Supprimer un message
@@ -105,11 +111,11 @@ module.exports = {
         let headerAuth = req.headers['authorization'];
         let userId = auth.getUserId(headerAuth);
 
-        console.log(userId);
+        console.log(messageId);
         models.Message.destroy({
                 // Identification de l'userId
                 where: {
-                    id: userId,
+                    id: messageId,
                 }
             })
             .then(messages => res.status(200).json(messages))

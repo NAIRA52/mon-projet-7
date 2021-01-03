@@ -3,16 +3,16 @@
       <h3>Poster une discussion</h3>
       <div class="form-group">
           <label>Titre</label>
-          <input type="text" class="form-control" v-model="title" placeholder="Votre prénom"/>
+          <input type="text" class="form-control" v-model="title" placeholder="Le titre"/>
       </div>
         <div class="form-group">
           <label>Message</label>
-          <input type="text" class="form-control" v-model="content" placeholder="Ex: j'adore le sport, le cinéma"/>
+          <input type="text" class="form-control" v-model="content" placeholder="Le texte"/>
       </div>
       <div class="form-group">
          <input type="file" @change="onFileSelected">
       </div>
-       <button class="btn btn-primary btn-block" @click="onUpload">Poster</button> 
+       <a href="/listMessages" class="btn btn-primary btn-block" @click="onUpload">Poster</a> 
       </form>
 </template>
 
@@ -41,7 +41,7 @@ fd.append('image', this.image);
  .then(res => {
    console.log(res)
  })
- this.$router.push('/listMessages')
+//  this.$router.push('/listMessages')
  }
 }
 }
