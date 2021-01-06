@@ -1,11 +1,11 @@
 <template>
-<form>
-    <div v-if="user" class="card">
+<form class="auth-inner">
+    <div v-if="user">
   <h3>Nom: {{user.username}}</h3>
   <h4 class="bio">Présentation: {{user.bio}}</h4>
   <h5 class="email">Contact: {{user.email}}</h5>
 <a href="/" @click="handleClickDelete" class="button delete">Supprimer le compte</a>
-<a href="/modifyProfil" class="button">Modifier la présentation</a>
+<a href="/modifyProfil" class="button btn-success">Modifier la présentation</a>
     </div>
 </form>
 </template>

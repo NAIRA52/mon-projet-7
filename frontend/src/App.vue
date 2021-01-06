@@ -1,12 +1,12 @@
 <template>
   <div id="app">
   <Nav /> 
-   <div class="auth-wrapper">
-     <div class="auth-inner">
+   <!-- <div class="auth-wrapper">
+     <div class="auth-inner"> -->
       <router-view />
      </div>
-   </div>
-  </div>
+   <!-- </div>
+  </div> -->
 </template>
 
 <script>

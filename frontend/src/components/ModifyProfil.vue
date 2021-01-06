@@ -1,11 +1,11 @@
 <template>
-<form>
-    <div class="form-group">
+<form class="auth-inner">
+    <div>
           <label>Présentation</label>
           <input type="text" class="form-control" v-model="bio" placeholder="Présentation"/>
     </div>
     <div class="btn">
-      <a href="/profil" class="button modify" @click="handleClickModify">Valider la modifications</a>
+      <a href="/profil" class="button modify" @click="handleClickModify">Valider la modification</a>
         </div>
 </form>
 </template>

@@ -7,8 +7,10 @@ const bodyParser = require('body-parser');
 // Création application express
 const app = express();
 const path = require('path');
-// Importer route "user"
+// Importer les routes
 const userRoutes = require('./routes/user');
+const messageRoutes = require('./routes/message');
+const commentRoutes = require('./routes/comment');
 
 // Connexion à la base de donnée mysql
 const Sequelize = require('sequelize');
@@ -35,12 +37,13 @@ app.get('/', function(req, res) {
     res.status(200).send('<h1>Bienvenue voici mon super site</h1>');
 });
 // On applique la route
-app.use('/api/', userRoutes);
+app.use('/api', userRoutes);
 // Indique à express de gérer la ressources images à chaque requête venant de la route images
 app.use('/images', express.static(path.join(__dirname, 'images')));
 // On enregistre les routes
-app.use('/api/messages', userRoutes);
 app.use('/api/auth', userRoutes);
-app.use('/api/messages/', userRoutes);
+app.use('/api/messages', messageRoutes);
+app.use('/api/messages/', commentRoutes);
+
 module.exports = sequelize;
 module.exports = app;

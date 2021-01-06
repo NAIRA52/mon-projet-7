@@ -9,7 +9,7 @@ module.exports = {
         // On reprend l'authentification
         let headerAuth = req.headers['authorization'];
         let userId = auth.getUserId(headerAuth);
-
+        console.log(req.body);
         // Parametre à utiliser pour creer un message
         let title = req.body.title;
         let content = req.body.content;
@@ -26,7 +26,6 @@ module.exports = {
                 if (userFound) {
                     let newMessage =
                         models.Message.create({
-                            username: username,
                             title: title,
                             content: content,
                             attachment: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,

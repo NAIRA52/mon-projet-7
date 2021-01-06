@@ -37,7 +37,7 @@ onUpload() {
   fd.append("title", this.title);
   fd.append("content", this.content);
 fd.append('image', this.image);
- axios.post('message/new',fd)
+ axios.post('messages/message/new',fd)
  .then(res => {
    console.log(res)
  })

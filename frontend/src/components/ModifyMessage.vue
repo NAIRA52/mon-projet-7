@@ -55,3 +55,7 @@ localStorage.getItem('token', response.data.token)
  img {
   width:100%
 }
+form {
+  padding: 5rem
+}
+</style>

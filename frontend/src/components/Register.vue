@@ -1,4 +1,6 @@
 <template>
+ <div class="auth-wrapper">
+     <div class="auth-inner"> 
   <form @submit.prevent="handleSubmit">
     <error v-if="error" :error="error" />
       <h3>Sign Up</h3>
@@ -25,6 +27,8 @@
 
       <button class="btn btn-primary btn-block">Sign Up</button>
   </form>
+     </div>
+ </div>
 </template>
 
 <script>
