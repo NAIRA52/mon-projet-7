@@ -10,10 +10,10 @@
           <input type="text" class="form-control" v-model="content" placeholder="Ex: j'adore le sport, le cinéma"/>
       </div>
       <div class="form-group">
-         <input type="file">
+         <input type="file" @change="onChangeUpload">
       </div>
-      <a href="/listMessages" class="btn btn-primary btn-block" @click="onChangeUpload">Poster</a> 
-<button class="button">Supprimer le message</button>
+      <button class="btn btn-primary btn-block" @click="buttonChange" >Poster</button> 
+<button class="button" @click="buttonDeleteMessage" >Supprimer le message</button>
 </div>
 
 </form>
@@ -25,6 +25,7 @@ export default {
   name: 'ModifyMessage',
   data() {
         return {
+
          messageId: this.$route.params.messageId,
          title:'',
          content:'',
@@ -33,29 +34,43 @@ export default {
   },
 
  methods: {
- onChangeUpload(){
+   //Modifier l'image
+   onChangeUpload(event){
+this.image= event.target.files[0]
+ console.log(this.image)
+   },
+   //Modifier un message
+ buttonChange(evt){
+    evt.preventDefault();
    const fd = new FormData();
   fd.append("title", this.title);
   fd.append("content", this.content);
 fd.append('image', this.image);
-const response = axios.put('message/${this.messageId}',fd)
+ axios.put(`messages/message/${this.messageId}`,fd)
   .then(res => {
+    this.$router.push('/listMessages');
    console.log(res)
-   this.$router.push('/listMessages')
+
  })
-localStorage.getItem('token', response.data.token) 
- }
 
+ },
+  // supprimer un message
+  buttonDeleteMessage(evt){
+evt.preventDefault();
+// //    const fd = new FormData();
+// //   fd.append("title", this.title);
+//   fd.append("content", this.content);
+// fd.append('image', this.image);
+ axios.delete(`messages/message/${this.messageId}`)
+  .then(res => {
+    this.$router.push('/listMessages');
+   console.log(res)
+  })
   }
   }
-
-</script>
+}
+  </script>
 
 <style>
- img {
-  width:100%
-}
-form {
-  padding: 5rem
-}
+
 </style>

@@ -1,16 +1,11 @@
 <template>
 <form>
-  <!-- Poster un message -->
-      <div class="btn-danger m-5">
-<router-link to="/postMessage">Poster une discussion</router-link>
-</div>
-
- <router-view />
  <!-- Affichage du message -->
 
- <div>
-   <div :key="message" v-for="message in messages" class="p-5" >
-     <router-link :to='`/getOneMessage/${message.id}`'>
+ 
+ <div>           
+<div :key="message" v-if="message" class="p-5" >
+    <router-link :to='`/modifyMessage/${message.id}`'>
    <tr class="text-left bg-dark text-light ">
         <!-- <td class="w-25 align-middle">Nom: {{user.username}}</td> -->
         <td class="w-25 align-middle">Title: {{message.title}}</td>
@@ -28,11 +23,13 @@
     :src="message.attachment" 
     alt="image"
 /> -->
-</router-link>
 
-</div>
-<router-view/>
+
+
+</router-link> 
  </div>
+ <router-view />
+</div>
 </form>
 </template>
 
@@ -41,18 +38,18 @@ import axios from 'axios'
 import { mapGetters } from 'vuex'
 
 export default {
-  name: 'ListMessages',
+  name: 'GetOneMessage',
   data(){
         return {
-          messages: []
+          message: []
         }
   },
   mounted(){
     axios
-    .get('messages/messages')
+    .get('messages/message/:id')
     .then((response) => {
-      this.messages = response.data;
-    console.log(this.messages)
+      this.message = response.data;
+    console.log(this.message)
   });
   
   },
@@ -61,7 +58,7 @@ export default {
   //      this.$router.push('/postMessage')
   //   }
   // },
-   computed: {
+    computed: {
       ...mapGetters(['user'])
    }
   

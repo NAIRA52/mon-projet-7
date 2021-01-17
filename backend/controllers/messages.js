@@ -48,7 +48,13 @@ module.exports = {
                 }
             })
     },
+    // Récupérer un seul objet
+    getOneMessage: function(req, res) {
+        models.Message.findOne({ id: req.params.id })
+            .then(message => res.status(200).json(message))
+            .catch(error => res.status(404).json({ error }));
 
+    },
     // Récuperer tout les messages
     listMessages: function(req, res) {
         models.Message.findAll()
@@ -67,15 +73,18 @@ module.exports = {
         // On reprend l'authentification
         let headerAuth = req.headers['authorization'];
         let userId = auth.getUserId(headerAuth);
+
         // Paramétre à prendre pour modifier le message
         let title = req.body.title;
         let content = req.body.content;
+        // let attachment = req.file.filename;
+        // console.log(req.body);
         // si les 2 champs ne sont pas rempli , un message d'erreur apparait
         if (title == null || content == null) {
             return res.status(400).json({ 'error': 'missing parameters' });
         }
         models.Message.findOne({
-                attributes: ['id', 'title', 'content', 'attachment'],
+                // attributes: ['id', 'title', 'content', 'attachment'],
                 where: { id: req.params.id }
             })
             .then(function(messages) {
@@ -93,7 +102,7 @@ module.exports = {
 
                         })
                     })
-                    console.log(req.body);
+
                 } else {
                     res.status(404).json({ 'error': 'Utilisateur non trouvé!' });
                 }
@@ -110,11 +119,11 @@ module.exports = {
         let headerAuth = req.headers['authorization'];
         let userId = auth.getUserId(headerAuth);
 
-        console.log(messageId);
+        // console.log(messageId);
         models.Message.destroy({
                 // Identification de l'userId
                 where: {
-                    id: messageId,
+                    id: req.params.id,
                 }
             })
             .then(messages => res.status(200).json(messages))

@@ -7,7 +7,7 @@ import Profil from './components/Profil.vue'
 import ModifyProfil from './components/ModifyProfil.vue'
 import ListMessages from './components/ListMessages.vue'
 import PostMessage from './components/PostMessage.vue'
-// import OneMessage from './components/OneMessage.vue'
+import GetOneMessage from './components/GetOneMessage.vue'
 import ModifyMessage from './components/ModifyMessage.vue'
 
 Vue.use(Router)
@@ -22,7 +22,7 @@ export default new Router({
         { path: '/modifyProfil', name: 'modifyProfil', component: ModifyProfil },
         { path: '/listMessages', name: 'listMessages', component: ListMessages },
         { path: '/postMessage', name: 'postMessage', component: PostMessage },
-        // { path: '/oneMessage/:messageId', name: 'oneMessage', component: OneMessage },
+        { path: '/getOneMessage/:messageId', name: 'getOneMessage', component: GetOneMessage },
         { path: '/modifyMessage/:messageId', name: 'modifyMessage', component: ModifyMessage }
     ]
 })

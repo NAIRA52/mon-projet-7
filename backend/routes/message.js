@@ -9,7 +9,9 @@ const messageCtrl = require('../controllers/messages');
 
 // Creer un message
 router.post('/message/new', multer, messageCtrl.createMessage);
-// Information concernant le message
+// Information concernant un message
+router.get('/message/:id', messageCtrl.getOneMessage);
+// Information concernant les messages
 router.get('/messages', messageCtrl.listMessages);
 // modifier un message d'un utilisateur
 router.put('/message/:id', multer, messageCtrl.modifyMessage);
