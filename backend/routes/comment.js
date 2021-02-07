@@ -6,7 +6,7 @@ const router = express.Router();
 const commentCtrl = require('../controllers/comments');
 
 // Ajouter un commentaire
-router.post('/comment/new', commentCtrl.createComment);
+router.post('/:messageId/comment/new', commentCtrl.createComment);
 // Lister les commentaire d'un seul utilisateur
 router.get('/comment/:id', commentCtrl.listCommentsId);
 // Lister les commentaires d'un seul Message

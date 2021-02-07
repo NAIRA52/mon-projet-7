@@ -11,18 +11,19 @@ module.exports = {
 
         // Parametre à utiliser pour creer un message
         let content = req.body.content;
+        let messageId = parseInt(req.params.messageId);
         // si les 2 champs ne sont pas rempli , un message d'erreur apparait
-        if (content == null) {
+        if (content <= 0) {
             return res.status(400).json({ 'error': 'missing parameters' });
         }
-        models.User.findOne({
-            where: { id: userId }
+        models.Message.findOne({
+            where: { id: messageId }
         })
 
         .then(function(userFound) {
             // let messageId = req.params.messageId;
             if (userFound) {
-                let messageId = req.body.userId;
+                let messageId = req.params.messageId;
                 let newComment =
                     models.Comment.create({
                         content: content,
@@ -51,7 +52,7 @@ module.exports = {
         // if (comment == null) {
         //     return res.status(400).json({ 'error': 'missing parameters' });
         // }
-        models.Comment.findAll({
+        models.Comment.findOne({
                 // attributes: ['id', 'comment'],
                 where: { UserId: userId }
             })

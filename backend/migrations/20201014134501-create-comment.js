@@ -8,13 +8,24 @@ module.exports = {
                 primaryKey: true,
                 type: Sequelize.INTEGER
             },
-            userId: {
-                type: Sequelize.INTEGER
-            },
             messageId: {
-                type: Sequelize.INTEGER
+                allowNull: false,
+                type: Sequelize.INTEGER,
+                references: {
+                    model: 'Messages',
+                    key: 'id'
+                }
+            },
+            userId: {
+                allowNull: false,
+                type: Sequelize.INTEGER,
+                references: {
+                    model: 'Users',
+                    key: 'id'
+                }
             },
             content: {
+                allowNull: false,
                 type: Sequelize.STRING
             },
             createdAt: {
@@ -28,6 +39,6 @@ module.exports = {
         });
     },
     down: async(queryInterface, Sequelize) => {
-        await queryInterface.dropTable('Contents');
+        await queryInterface.dropTable('Comments');
     }
 };

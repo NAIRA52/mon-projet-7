@@ -12,7 +12,7 @@
         <td class="w-25 align-middle">Message: {{message.content}}</td>
         <td class="w-25"><img :src="message.attachment" alt="image" class="img-fluid img-thumbnail w-75"></td>
    </tr>
-        
+      
        
  <!-- <div :key="message" v-for="message in messages"  class="card m-5">
    <router-link :to='`/modifyMessage/${message.id}`'>
@@ -28,7 +28,35 @@
 
 </router-link> 
  </div>
+ 
+        <div class="btn-success m-5 w-25">
+<router-link :to='`/postComment`'>Poster un commentaire</router-link>
+</div>
  <router-view />
+  <!-- Affichage du commentaire -->
+
+ <div>
+   <div :key="comment" v-for="comment in comments" class="p-5" >
+     <router-link :to='`/getOneMessage/${message.id}`'>
+   <tr class="text-left bg-dark text-light ">
+        <!-- <td class="w-25 align-middle">Nom: {{user.username}}</td> -->
+        <!-- <td class="w-25 align-middle">Title: {{message.title}}</td> -->
+        <td class="w-25 align-middle">Comment: {{comment.content}}</td>
+        <!-- <td class="w-25"><img :src="message.attachment" alt="image" class="img-fluid img-thumbnail w-75"></td> -->
+   </tr>
+   </router-link>
+
+</div>
+   <!-- <div :key="comment" v-for="comment in comments" class="p-5" >
+   <tr class="text-left bg-dark text-light ">
+         <td class="w-25 align-middle">Nom: {{user.username}}</td> 
+        <td class="w-25 align-middle">Commentaire: {{comment.content}}</td>
+       
+   </tr>
+   
+</div> -->
+<router-view/>
+ </div>
 </div>
 </form>
 </template>
@@ -41,7 +69,8 @@ export default {
   name: 'GetOneMessage',
   data(){
         return {
-          message: []
+          message: [],
+          comments: []
         }
   },
   mounted(){
@@ -50,6 +79,15 @@ export default {
     .then((response) => {
       this.message = response.data;
     console.log(this.message)
+  });
+  
+  },
+  created(){
+    axios
+    .get('messages/comment/message')
+    .then((response) => {
+      this.comment = response.data;
+    console.log(this.comment)
   });
   
   },
