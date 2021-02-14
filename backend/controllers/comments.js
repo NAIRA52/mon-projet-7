@@ -1,47 +1,45 @@
 // Importer models 
 const models = require('../models');
 // // Importer auth
-const auth = require('../middleware/auth');
-// // Creer un message
+const auth = require('../middleware/auth');;
+// Creer un message
 module.exports = {
     createComment: function(req, res) {
         // On reprend l'authentification
         let headerAuth = req.headers['authorization'];
         let userId = auth.getUserId(headerAuth);
-
+        console.log(req.body);
         // Parametre à utiliser pour creer un message
         let content = req.body.content;
-        let messageId = parseInt(req.params.messageId);
-        // si les 2 champs ne sont pas rempli , un message d'erreur apparait
+        let messageId = req.params.messageId;
+        console.log(req.params);
+        // si le champs n'est pas rempli , un message d'erreur apparait
         if (content <= 0) {
             return res.status(400).json({ 'error': 'missing parameters' });
         }
         models.Message.findOne({
-            where: { id: messageId }
-        })
-
-        .then(function(userFound) {
-            // let messageId = req.params.messageId;
-            if (userFound) {
-                let messageId = req.params.messageId;
-                let newComment =
-                    models.Comment.create({
-                        content: content,
-                        UserId: userFound.id,
-                        messageId: messageId
-                    })
-
-
-                .then(function(newComment) {
-                        return res.status(201).json({
-                            'newComment': newComment.id
+                where: { id: messageId, userId }
+            })
+            .then(function(messageFound) {
+                if (messageFound) {
+                    let newComment =
+                        models.Comment.create({
+                            content: content,
+                            // messageId: req.body.messageId,
+                            // messageId: req.params.messageId,
+                            MessageId: messageFound.id
                         })
-                    })
-                    .catch(function(err) {
-                        return res.status(500).json({ 'error': 'unable to verify user' });
-                    });
-            }
-        })
+
+                    .then(function(newComment) {
+                            return res.status(201).json({
+                                'newComment': newComment.id
+                            })
+                        })
+                        .catch(function(err) {
+                            return res.status(500).json({ 'error': 'unable to verify user' });
+                        });
+                }
+            })
     },
     // Affiche tout les comemntaires d'un Utilisateur
     listCommentsId: function(req, res) {

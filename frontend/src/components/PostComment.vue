@@ -6,37 +6,39 @@
           <label>Message</label>
           <input type="text" class="form-control" v-model="content" placeholder="Le texte"/>
       </div>
-    
-       <a href="/getOneMessage/${message.id}" class="btn btn-primary btn-block" @click="onUpload">Poster</a> 
+    <button class="btn btn-primary btn-block" @click="onUpload" >Poster</button> 
+       <!-- <a href="/getOneMessage/${messageId}" class="btn btn-primary btn-block" @click="onUpload">Poster</a>  -->
       </form>
 </template>
 
 <script>
 import axios from 'axios'
+
 export default {
     name: 'PostComment',
 data() {
     return { 
-          content: ''
-   
+      messageId: this.$route.params.messageId,
+      userId: this.$route.params.UserId,
+      content: ''
     }
 },
 methods: {
+ onUpload(evt) {
+   evt.preventDefault();
+  const fd = new FormData();
+   fd.append("content", this.content),
 
-onUpload() {
- const fd = new FormData();
- 
-  fd.append("content", this.content);
-
- axios
- .post('messages/comment/new',fd)
- .then(res => {
-   console.log(res)
- })
-//  this.$router.push('/listMessages')
+  axios.post(`messages/${this.messageId}/comment/new`,fd)
+    
+  .then(response => {
+    localStorage.setItem('token', response.data.token);
+    this.$router.push(`/getOneMessage/:messageId`);
+    console.log(response)
+  })
+  }
  }
-}
-}
+ }
 
 </script>
 

@@ -30,14 +30,14 @@
  </div>
  
         <div class="btn-success m-5 w-25">
-<router-link :to='`/postComment`'>Poster un commentaire</router-link>
+<router-link :to='`/postComment/${messageId}`'>Poster un commentaire</router-link>
 </div>
  <router-view />
   <!-- Affichage du commentaire -->
 
  <div>
-   <div :key="comment" v-for="comment in comments" class="p-5" >
-     <router-link :to='`/getOneMessage/${message.id}`'>
+   <div :key="comment" v-if="comment" class="p-5" >
+     <router-link :to='`/getOneMessage/${comment.id}`'>
    <tr class="text-left bg-dark text-light ">
         <!-- <td class="w-25 align-middle">Nom: {{user.username}}</td> -->
         <!-- <td class="w-25 align-middle">Title: {{message.title}}</td> -->
@@ -47,14 +47,6 @@
    </router-link>
 
 </div>
-   <!-- <div :key="comment" v-for="comment in comments" class="p-5" >
-   <tr class="text-left bg-dark text-light ">
-         <td class="w-25 align-middle">Nom: {{user.username}}</td> 
-        <td class="w-25 align-middle">Commentaire: {{comment.content}}</td>
-       
-   </tr>
-   
-</div> -->
 <router-view/>
  </div>
 </div>
@@ -69,6 +61,7 @@ export default {
   name: 'GetOneMessage',
   data(){
         return {
+           messageId: this.$route.params.messageId,
           message: [],
           comments: []
         }
@@ -84,7 +77,7 @@ export default {
   },
   created(){
     axios
-    .get('messages/comment/message')
+    .get(`messages/comment/message`)
     .then((response) => {
       this.comment = response.data;
     console.log(this.comment)

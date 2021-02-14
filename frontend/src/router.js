@@ -28,7 +28,7 @@ export default new Router({
         { path: '/postMessage', name: 'postMessage', component: PostMessage },
         { path: '/getOneMessage/:messageId', name: 'getOneMessage', component: GetOneMessage },
         { path: '/modifyMessage/:messageId', name: 'modifyMessage', component: ModifyMessage },
-        { path: '/postComment', name: 'postComment', component: PostComment }
+        { path: '/postComment/:messageId', name: 'postComment', component: PostComment }
 
     ]
 })
