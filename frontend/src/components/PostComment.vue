@@ -14,27 +14,34 @@
 <script>
 import axios from 'axios'
 
+
+
 export default {
     name: 'PostComment',
 data() {
     return { 
       messageId: this.$route.params.messageId,
-      userId: this.$route.params.UserId,
-      content: ''
+      content: '',
+      token: ''
     }
 },
 methods: {
  onUpload(evt) {
    evt.preventDefault();
-  const fd = new FormData();
-   fd.append("content", this.content),
 
-  axios.post(`messages/${this.messageId}/comment/new`,fd)
-    
+  this.token = JSON.parse(localStorage.getItem('token'));
+
+
+  axios.post(`messages/${this.messageId}/comment/new`,{content: this.content}, {
+    headers:{
+       'Authorization': `Bearer ${this.token}`
+    }
+  })
+
   .then(response => {
-    localStorage.setItem('token', response.data.token);
-    this.$router.push(`/getOneMessage/:messageId`);
     console.log(response)
+    this.$router.push(`/getOneMessage/${this.messageId}`);
+
   })
   }
  }

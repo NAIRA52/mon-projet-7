@@ -8,7 +8,7 @@ const commentCtrl = require('../controllers/comments');
 // Ajouter un commentaire
 router.post('/:messageId/comment/new', commentCtrl.createComment);
 // Lister les commentaire d'un seul utilisateur
-router.get('/comment/:id', commentCtrl.listCommentsId);
+router.get('/:messageId/comment', commentCtrl.listCommentsId);
 // Lister les commentaires d'un seul Message
 router.get('/comment/message', commentCtrl.listCommentsMessage);
 // modifier un message d'un utilisateur

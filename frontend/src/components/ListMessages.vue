@@ -17,19 +17,7 @@
         <td class="w-25 align-middle">Message: {{message.content}}</td>
         <td class="w-25"><img :src="message.attachment" alt="image" class="img-fluid img-thumbnail w-75"></td>
    </tr>
-        
-       
- <!-- <div :key="message" v-for="message in messages"  class="card m-5">
-   <router-link :to='`/modifyMessage/${message.id}`'>
-   <h3>Nom: {{user.username}}</h3>
-  <h3>Title: {{message.title}}</h3>
-  <h3>Message: {{message.content}}</h3>
-  <img
-    :src="message.attachment" 
-    alt="image"
-/> -->
 </router-link>
-
 </div>
 <router-view/>
  </div>
@@ -56,11 +44,6 @@ export default {
   });
   
   },
-  // methods:{
-  //   handleClickPostMessage() {
-  //      this.$router.push('/postMessage')
-  //   }
-  // },
    computed: {
       ...mapGetters(['user'])
    }

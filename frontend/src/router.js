@@ -13,6 +13,7 @@ import GetOneMessage from './components/GetOneMessage.vue'
 import ModifyMessage from './components/ModifyMessage.vue'
 // Route Commentaires
 import PostComment from './components/PostComment.vue'
+import ModifyComment from './components/ModifyComment.vue'
 
 Vue.use(Router)
 
@@ -28,7 +29,8 @@ export default new Router({
         { path: '/postMessage', name: 'postMessage', component: PostMessage },
         { path: '/getOneMessage/:messageId', name: 'getOneMessage', component: GetOneMessage },
         { path: '/modifyMessage/:messageId', name: 'modifyMessage', component: ModifyMessage },
-        { path: '/postComment/:messageId', name: 'postComment', component: PostComment }
+        { path: '/postComment/:messageId', name: 'postComment', component: PostComment },
+        { path: '/modifyComment/:commentId', name: 'modifyComment', component: ModifyComment },
 
     ]
 })

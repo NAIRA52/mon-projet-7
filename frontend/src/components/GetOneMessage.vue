@@ -1,8 +1,6 @@
 <template>
 <form>
  <!-- Affichage du message -->
-
- 
  <div>           
 <div :key="message" v-if="message" class="p-5" >
     <router-link :to='`/modifyMessage/${message.id}`'>
@@ -12,37 +10,21 @@
         <td class="w-25 align-middle">Message: {{message.content}}</td>
         <td class="w-25"><img :src="message.attachment" alt="image" class="img-fluid img-thumbnail w-75"></td>
    </tr>
-      
-       
- <!-- <div :key="message" v-for="message in messages"  class="card m-5">
-   <router-link :to='`/modifyMessage/${message.id}`'>
-   <h3>Nom: {{user.username}}</h3>
-  <h3>Title: {{message.title}}</h3>
-  <h3>Message: {{message.content}}</h3>
-  <img
-    :src="message.attachment" 
-    alt="image"
-/> -->
-
-
-
 </router-link> 
  </div>
- 
+
+ <!-- Poster un commentaire -->
         <div class="btn-success m-5 w-25">
 <router-link :to='`/postComment/${messageId}`'>Poster un commentaire</router-link>
 </div>
- <router-view />
+
   <!-- Affichage du commentaire -->
 
  <div>
-   <div :key="comment" v-if="comment" class="p-5" >
-     <router-link :to='`/getOneMessage/${comment.id}`'>
+   <div :key="comment" v-for="comment in comments" class="p-5" >
+     <router-link :to='`/modifyComment/${comment.id}`'>
    <tr class="text-left bg-dark text-light ">
-        <!-- <td class="w-25 align-middle">Nom: {{user.username}}</td> -->
-        <!-- <td class="w-25 align-middle">Title: {{message.title}}</td> -->
         <td class="w-25 align-middle">Comment: {{comment.content}}</td>
-        <!-- <td class="w-25"><img :src="message.attachment" alt="image" class="img-fluid img-thumbnail w-75"></td> -->
    </tr>
    </router-link>
 
@@ -61,7 +43,8 @@ export default {
   name: 'GetOneMessage',
   data(){
         return {
-           messageId: this.$route.params.messageId,
+          messageId: this.$route.params.messageId,
+          commentId: this.$route.params.commentId,
           message: [],
           comments: []
         }
@@ -77,18 +60,13 @@ export default {
   },
   created(){
     axios
-    .get(`messages/comment/message`)
+    .get(`messages/${this.messageId}/comment`)
     .then((response) => {
-      this.comment = response.data;
-    console.log(this.comment)
+      this.comments = response.data;
+    console.log(this.comments)
   });
   
   },
-  // methods:{
-  //   handleClickPostMessage() {
-  //      this.$router.push('/postMessage')
-  //   }
-  // },
     computed: {
       ...mapGetters(['user'])
    }

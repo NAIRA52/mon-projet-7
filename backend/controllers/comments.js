@@ -18,7 +18,7 @@ module.exports = {
             return res.status(400).json({ 'error': 'missing parameters' });
         }
         models.Message.findOne({
-                where: { id: messageId, userId }
+                where: { id: messageId }
             })
             .then(function(messageFound) {
                 if (messageFound) {
@@ -26,13 +26,13 @@ module.exports = {
                         models.Comment.create({
                             content: content,
                             // messageId: req.body.messageId,
-                            // messageId: req.params.messageId,
-                            MessageId: messageFound.id
+                            userId: userId,
+                            messageId: messageFound.id
                         })
 
                     .then(function(newComment) {
                             return res.status(201).json({
-                                'newComment': newComment.id
+                                'newCommentId': newComment.id
                             })
                         })
                         .catch(function(err) {
@@ -41,29 +41,34 @@ module.exports = {
                 }
             })
     },
-    // Affiche tout les comemntaires d'un Utilisateur
+    // Affiche tout les comemntaires d'un seul message
     listCommentsId: function(req, res) {
-        // On reprend l'authentification
-        let headerAuth = req.headers['authorization'];
-        let userId = auth.getUserId(headerAuth);
-        // si le champs ne sont pas rempli , un message d'erreur apparait
-        // if (comment == null) {
-        //     return res.status(400).json({ 'error': 'missing parameters' });
-        // }
-        models.Comment.findOne({
-                // attributes: ['id', 'comment'],
-                where: { UserId: userId }
-            })
-            // models.Comment.findAll()
-            .then(function(comments) {
-                if (comments) {
-                    res.status(200).json(comments);
-                }
-            })
-            .catch(function(err) {
-                console.log(err);
-                res.status(500).json({ "error": "Problème paramétre!" });
-            });
+        models.Comment.findAll({ commentId: req.body.commentId })
+            .then(comment => res.status(200).json(comment))
+            .catch(error => res.status(404).json({ error }));
+
+
+        // // On reprend l'authentification
+        // let headerAuth = req.headers['authorization'];
+        // let userId = auth.getUserId(headerAuth);
+        // // si le champs ne sont pas rempli , un message d'erreur apparait
+        // // if (comment == null) {
+        // //     return res.status(400).json({ 'error': 'missing parameters' });
+        // // }
+        // models.Comment.findOne({
+        //         // attributes: ['id', 'comment'],
+        //         where: { UserId: userId }
+        //     })
+        //     // models.Comment.findAll()
+        //     .then(function(comments) {
+        //         if (comments) {
+        //             res.status(200).json(comments);
+        //         }
+        //     })
+        //     .catch(function(err) {
+        //         console.log(err);
+        //         res.status(500).json({ "error": "Problème paramétre!" });
+        //     });
     },
     // Lister les commentaires d'un seul message
     listCommentsMessage: function(req, res) {
@@ -86,25 +91,21 @@ module.exports = {
         // On reprend l'authentification
         let headerAuth = req.headers['authorization'];
         let userId = auth.getUserId(headerAuth);
-        // Paramétre à prendre pour modifier le message
-        //let title = req.body.title;
+        // Paramétre à prendre pour modifier le commentaire
         let content = req.body.content;
         // si les 2 champs ne sont pas rempli , un message d'erreur apparait
-        if (content == null) {
+        if (content <= 0) {
             return res.status(400).json({ 'error': 'missing parameters' });
         }
-        let messageId = req.body.userId;
+        // let messageId = req.body.userId;
         models.Comment.findOne({
-                attributes: ['id', 'userId', 'content'],
-                where: {
-                    MessageId: messageId
-                }
+                where: { id: req.params.id }
             })
             .then(function(comments) {
                 if (comments) {
                     comments.update({
-                            content: (content ? content : comments.content)
-                        })
+                            content: (content ? content : req.body.content),
+                        }, { where: { id: req.params.id } })
                         .then(function(comments) {
                             return res.status(200).json({
                                 'newcommentairesId': comments.id
@@ -129,7 +130,7 @@ module.exports = {
         models.Comment.destroy({
                 // Identification de l'userId
                 where: {
-                    UserId: userId
+                    commentId: cpmmentId
                 }
             })
             .then(comments => res.status(200).json(comments))

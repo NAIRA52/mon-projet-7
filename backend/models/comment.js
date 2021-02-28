@@ -14,7 +14,8 @@ module.exports = (sequelize, DataTypes) => {
                 model: 'User',
                 key: 'id'
             }
-        }
+        },
+        content: { type: DataTypes.STRING }
     }, {});
     Comment.associate = function(models) {
         // associations can be defined here

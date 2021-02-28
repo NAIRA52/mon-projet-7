@@ -57,10 +57,6 @@ fd.append('image', this.image);
   // supprimer un message
   buttonDeleteMessage(evt){
 evt.preventDefault();
-// //    const fd = new FormData();
-// //   fd.append("title", this.title);
-//   fd.append("content", this.content);
-// fd.append('image', this.image);
  axios.delete(`messages/message/${this.messageId}`)
   .then(res => {
     this.$router.push('/listMessages');
