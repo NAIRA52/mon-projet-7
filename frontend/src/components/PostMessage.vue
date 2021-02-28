@@ -42,7 +42,6 @@ fd.append('image', this.image);
  .then(res => {
    console.log(res)
  })
-//  this.$router.push('/listMessages')
  }
 }
 }

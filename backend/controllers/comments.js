@@ -130,7 +130,7 @@ module.exports = {
         models.Comment.destroy({
                 // Identification de l'userId
                 where: {
-                    commentId: cpmmentId
+                    commentId: commentId
                 }
             })
             .then(comments => res.status(200).json(comments))
