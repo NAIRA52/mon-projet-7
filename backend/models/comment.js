@@ -1,8 +1,8 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
     let Comment = sequelize.define('Comment', {
-        MessageId: DataTypes.INTEGER,
-        UserId: DataTypes.INTEGER,
+        messageId: DataTypes.INTEGER,
+        userId: DataTypes.INTEGER,
         content: DataTypes.STRING
     }, {
         classMethods: {

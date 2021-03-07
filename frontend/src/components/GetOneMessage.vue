@@ -3,7 +3,7 @@
  <!-- Affichage du message -->
  <div>           
 <div :key="message" v-if="message" class="p-5" >
-    <router-link :to='`/modifyMessage/${message.id}`'>
+    <router-link :to='`/modifyMessage/${messageId}`'>
    <tr class="text-left bg-dark text-light ">
         <!-- <td class="w-25 align-middle">Nom: {{user.username}}</td> -->
         <td class="w-25 align-middle">Title: {{message.title}}</td>
@@ -22,7 +22,7 @@
 
  <div>
    <div :key="comment" v-for="comment in comments" class="p-5" >
-     <router-link :to='`/modifyComment/${comment.id}`'>
+     <router-link :to='`/modifyComment/${message.id}/${comment.id}`'>
    <tr class="text-left bg-dark text-light ">
         <td class="w-25 align-middle">Comment: {{comment.content}}</td>
    </tr>

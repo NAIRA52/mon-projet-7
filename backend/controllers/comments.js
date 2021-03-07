@@ -47,28 +47,6 @@ module.exports = {
             .then(comment => res.status(200).json(comment))
             .catch(error => res.status(404).json({ error }));
 
-
-        // // On reprend l'authentification
-        // let headerAuth = req.headers['authorization'];
-        // let userId = auth.getUserId(headerAuth);
-        // // si le champs ne sont pas rempli , un message d'erreur apparait
-        // // if (comment == null) {
-        // //     return res.status(400).json({ 'error': 'missing parameters' });
-        // // }
-        // models.Comment.findOne({
-        //         // attributes: ['id', 'comment'],
-        //         where: { UserId: userId }
-        //     })
-        //     // models.Comment.findAll()
-        //     .then(function(comments) {
-        //         if (comments) {
-        //             res.status(200).json(comments);
-        //         }
-        //     })
-        //     .catch(function(err) {
-        //         console.log(err);
-        //         res.status(500).json({ "error": "Problème paramétre!" });
-        //     });
     },
     // Lister les commentaires d'un seul message
     listCommentsMessage: function(req, res) {
@@ -129,9 +107,7 @@ module.exports = {
         console.log(userId);
         models.Comment.destroy({
                 // Identification de l'userId
-                where: {
-                    commentId: commentId
-                }
+                where: { id: req.params.id }
             })
             .then(comments => res.status(200).json(comments))
             .catch(error => res.status(404).json({ 'error': 'Impossible de supprimer le message!' }));

@@ -119,14 +119,15 @@ module.exports = {
         let headerAuth = req.headers['authorization'];
         let userId = auth.getUserId(headerAuth);
 
-        // console.log(messageId);
+        // console.log(id);
         models.Message.destroy({
                 // Identification de l'userId
                 where: {
-                    id: req.params.id,
+                    id: req.params.id
                 }
             })
             .then(messages => res.status(200).json(messages))
             .catch(error => res.status(404).json({ 'error': 'Impossible de supprimer le message!' }));
     }
+
 }

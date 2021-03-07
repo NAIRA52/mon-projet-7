@@ -21,6 +21,7 @@ export default {
         return {
 
          commentId: this.$route.params.commentId,
+         messageId: this.$route.params.messageId,
          content:''
         }
   },
@@ -29,10 +30,8 @@ export default {
    //Modifier un commentaire
  buttonChangeComment(evt){
     evt.preventDefault();
-    const fd = new FormData();
-  
-  fd.append("content", this.content);
- axios.put(`messages/comment/${this.commentId}`,fd)
+
+ axios.put(`messages/comment/${this.commentId}`,{content: this.content})
 
  .then(res => {
     this.$router.push(`/getOneMessage/${this.messageId}`);

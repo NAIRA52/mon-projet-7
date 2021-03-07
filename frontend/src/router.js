@@ -30,7 +30,6 @@ export default new Router({
         { path: '/getOneMessage/:messageId', name: 'getOneMessage', component: GetOneMessage },
         { path: '/modifyMessage/:messageId', name: 'modifyMessage', component: ModifyMessage },
         { path: '/postComment/:messageId', name: 'postComment', component: PostComment },
-        { path: '/modifyComment/:commentId', name: 'modifyComment', component: ModifyComment },
-
+        { path: '/modifyComment/:messageId/:commentId', name: 'modifyComment', component: ModifyComment },
     ]
 })
