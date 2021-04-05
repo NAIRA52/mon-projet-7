@@ -12,7 +12,7 @@
    <div :key="message" v-for="message in messages" class="p-5" >
      <router-link :to='`/getOneMessage/${message.id}`'>
    <tr class="text-left bg-dark text-light ">
-        <!-- <td class="w-25 align-middle">Nom: {{user.username}}</td> -->
+        <td class="w-25 align-middle">Nom: {{user.username}}</td>
         <td class="w-25 align-middle">Title: {{message.title}}</td>
         <td class="w-25 align-middle">Message: {{message.content}}</td>
         <td class="w-25"><img :src="message.attachment" alt="image" class="img-fluid img-thumbnail w-75"></td>
@@ -32,7 +32,8 @@ export default {
   name: 'ListMessages',
   data(){
         return {
-          messages: []
+          messages: [],
+          
         }
   },
   mounted(){

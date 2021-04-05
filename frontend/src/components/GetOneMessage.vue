@@ -5,7 +5,7 @@
 <div :key="message" v-if="message" class="p-5" >
     <router-link :to='`/modifyMessage/${messageId}`'>
    <tr class="text-left bg-dark text-light ">
-        <!-- <td class="w-25 align-middle">Nom: {{user.username}}</td> -->
+      <!-- <td class="w-25 align-middle">Nom: {{user.username}}</td> -->
         <td class="w-25 align-middle">Title: {{message.title}}</td>
         <td class="w-25 align-middle">Message: {{message.content}}</td>
         <td class="w-25"><img :src="message.attachment" alt="image" class="img-fluid img-thumbnail w-75"></td>
@@ -24,6 +24,7 @@
    <div :key="comment" v-for="comment in comments" class="p-5" >
      <router-link :to='`/modifyComment/${message.id}/${comment.id}`'>
    <tr class="text-left bg-dark text-light ">
+    <td class="w-25 align-middle">Nom: {{user.username}}</td>
         <td class="w-25 align-middle">Comment: {{comment.content}}</td>
    </tr>
    </router-link>
@@ -51,7 +52,7 @@ export default {
   },
   mounted(){
     axios
-    .get('messages/message/:id')
+    .get(`messages/message/${this.messageId}`)
     .then((response) => {
       this.message = response.data;
     console.log(this.message)
